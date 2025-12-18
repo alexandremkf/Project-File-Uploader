@@ -1,0 +1,20 @@
+{
+  "name": "project-file-uploader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandremkf/Project-File-Uploader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandremkf/Project-File-Uploader/issues"
+  },
+  "homepage": "https://github.com/alexandremkf/Project-File-Uploader#readme",
+  "description": ""
+}
