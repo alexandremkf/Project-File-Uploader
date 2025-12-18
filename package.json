@@ -19,7 +19,7 @@
   "homepage": "https://github.com/alexandremkf/Project-File-Uploader#readme",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^7.2.0",
+    "@prisma/client": "^6.19.1",
     "@quixo3/prisma-session-store": "^3.1.13",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",
@@ -28,7 +28,7 @@
     "multer": "^2.0.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "prisma": "^7.2.0"
+    "prisma": "^6.19.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
