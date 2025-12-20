@@ -5,6 +5,31 @@
 <a href="/upload">Upload de arquivo</a> |
 <a href="/logout">Logout</a>
 
+<h3>Criar pasta</h3>
+
+<form action="/folders" method="POST">
+  <input type="text" name="name" placeholder="Nome da pasta" required />
+  <button type="submit">Criar</button>
+</form>
+
+<h3>Pastas</h3>
+
+<ul>
+  <% if (folders && folders.length > 0) { %>
+    <% folders.forEach(folder => { %>
+      <li>
+        📁 <%= folder.name %>
+
+        <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline">
+          <button type="submit">Excluir</button>
+        </form>
+      </li>
+    <% }) %>
+  <% } else { %>
+    <li>Nenhuma pasta criada</li>
+  <% } %>
+</ul>
+
 <ul>
   <% files.forEach(file => { %>
     <li>

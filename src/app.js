@@ -8,6 +8,7 @@ import passport from "./config/passport.js";
 import authRoutes from "./routes/auth.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
+import folderRoutes from "./routes/folder.routes.js";
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use(passport.session());
 app.use(authRoutes);
 app.use(dashboardRoutes);
 app.use(uploadRoutes);
+app.use("/folders", folderRoutes);
 
 /* =========================
    ROTA TESTE
