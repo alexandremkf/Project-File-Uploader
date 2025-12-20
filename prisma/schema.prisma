@@ -8,27 +8,23 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  username  String   @unique
+  id        String    @id @default(uuid())
+  email     String    @unique
+  username  String    @unique
   password  String
-  createdAt DateTime @default(now())
-
-  folders  Folder[]
-  files    File[]
-  sessions Session[]
+  createdAt DateTime  @default(now())
+  files     File[]
+  folders   Folder[]
+  sessions  Session[]
 }
 
 model Folder {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  files File[]
-
+  id          String         @id @default(uuid())
+  name        String
+  createdAt   DateTime       @default(now())
+  userId      String
+  files       File[]
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   sharedLinks SharedFolder[]
 }
 
@@ -36,11 +32,9 @@ model SharedFolder {
   id        String   @id @default(uuid())
   token     String   @unique
   expiresAt DateTime
-
-  folderId String
-  folder   Folder @relation(fields: [folderId], references: [id], onDelete: Cascade)
-
+  folderId  String
   createdAt DateTime @default(now())
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
 }
 
 model File {
@@ -50,12 +44,10 @@ model File {
   url       String?
   path      String?
   createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  folderId String?
-  folder   Folder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  userId    String
+  folderId  String?
+  folder    Folder?  @relation(fields: [folderId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
@@ -63,9 +55,8 @@ model Session {
   sid       String   @unique
   data      String
   expiresAt DateTime
-
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id])
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
 
   @@index([sid])
 }
