@@ -1,18 +1,18 @@
 import multer from "multer";
-import path from "path";
-import { fileURLToPath } from "url";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "./cloudinary.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, "../../uploads"),
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
+// Storage do Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "file-uploader",
+    resource_type: "auto",
+    allowed_formats: ["jpg", "png", "pdf", "txt"],
   },
 });
 
+// Filtro de tipos (camada extra de segurança)
 const fileFilter = (req, file, cb) => {
   const allowedTypes = [
     "image/jpeg",

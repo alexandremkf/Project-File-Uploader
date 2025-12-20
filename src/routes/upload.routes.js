@@ -12,6 +12,7 @@ router.post(
     upload.single("file")(req, res, async (err) => {
       const { folderId } = req.body;
 
+      // Erro do multer (tipo inválido, tamanho, etc)
       if (err) {
         return res.render("dashboard", {
           user: req.user,
@@ -21,6 +22,7 @@ router.post(
         });
       }
 
+      // Nenhum arquivo enviado
       if (!req.file) {
         return res.render("dashboard", {
           user: req.user,
@@ -37,8 +39,8 @@ router.post(
       await prisma.file.create({
         data: {
           name: file.originalname,
-          path: file.path,
           size: file.size,
+          url: file.path, // 👈 URL do Cloudinary
           userId: req.user.id,
           folderId: folderId || null,
         },
