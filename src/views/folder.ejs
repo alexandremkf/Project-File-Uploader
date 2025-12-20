@@ -26,4 +26,34 @@
   <% }) %>
 </ul>
 
+<h3>Compartilhar pasta</h3>
+
+<form action="/folders/<%= folder.id %>/share" method="POST">
+  <select name="duration">
+    <option value="1d">1 dia</option>
+    <option value="7d">7 dias</option>
+    <option value="30d">30 dias</option>
+  </select>
+
+  <button type="submit">Gerar link</button>
+</form>
+
+<h3>Links públicos</h3>
+
+<ul>
+  <% if (folder.sharedLinks.length === 0) { %>
+    <li>Nenhum link gerado ainda</li>
+  <% } %>
+
+  <% folder.sharedLinks.forEach(link => { %>
+    <li>
+      🔗
+      <a href="/share/<%= link.token %>" target="_blank">
+        /share/<%= link.token %>
+      </a>
+      (expira em <%= link.expiresAt.toLocaleDateString() %>)
+    </li>
+  <% }) %>
+</ul>
+
 <a href="/dashboard">⬅ Voltar</a>

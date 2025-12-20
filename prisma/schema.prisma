@@ -14,9 +14,9 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
-  folders   Folder[]
-  files     File[]
-  sessions  Session[]
+  folders  Folder[]
+  files    File[]
+  sessions Session[]
 }
 
 model Folder {
@@ -24,10 +24,23 @@ model Folder {
   name      String
   createdAt DateTime @default(now())
 
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  files     File[]
+  files File[]
+
+  sharedLinks SharedFolder[]
+}
+
+model SharedFolder {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  expiresAt DateTime
+
+  folderId String
+  folder   Folder @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }
 
 model File {
@@ -38,11 +51,11 @@ model File {
   path      String?
   createdAt DateTime @default(now())
 
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  folderId  String?
-  folder    Folder?  @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  folderId String?
+  folder   Folder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
 }
 
 model Session {
@@ -51,8 +64,8 @@ model Session {
   data      String
   expiresAt DateTime
 
-  userId    String?
-  user      User?    @relation(fields: [userId], references: [id])
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
 
   @@index([sid])
 }

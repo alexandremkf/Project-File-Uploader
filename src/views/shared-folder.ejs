@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pasta compartilhada</title>
+</head>
+<body>
+  <h1><%= folder.name %></h1>
+
+  <p>📅 Link válido até: <%= expiresAt.toLocaleDateString() %></p>
+
+  <h3>Arquivos</h3>
+
+  <ul>
+    <% if (folder.files.length === 0) { %>
+      <li>Esta pasta não contém arquivos</li>
+    <% } %>
+
+    <% folder.files.forEach(file => { %>
+      <li>
+        📄 <%= file.name %>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

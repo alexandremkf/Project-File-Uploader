@@ -15,6 +15,7 @@ router.get("/folders/:id", ensureAuthenticated, async (req, res) => {
     where: { id: req.params.id },
     include: {
       files: true,
+      sharedLinks: true,
     },
   });
 
