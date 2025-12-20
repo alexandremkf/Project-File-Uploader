@@ -38,7 +38,11 @@
 <ul>
   <% files.forEach(file => { %>
     <li>
-      <%= file.name %> - <%= file.size %> bytes
+      📄
+      <a href="/files/<%= file.id %>">
+        <%= file.name %>
+      </a>
+      — <%= file.size %> bytes
     </li>
   <% }) %>
 </ul>

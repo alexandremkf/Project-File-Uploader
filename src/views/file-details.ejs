@@ -1,0 +1,13 @@
+<h2>Detalhes do arquivo</h2>
+
+<p><strong>Nome:</strong> <%= file.name %></p>
+<p><strong>Tamanho:</strong> <%= file.size %> bytes</p>
+<p><strong>Upload em:</strong> <%= file.createdAt.toLocaleString() %></p>
+
+<a href="/files/<%= file.id %>/download">
+  ⬇️ Download
+</a>
+
+<br><br>
+
+<a href="/dashboard">⬅ Voltar</a>

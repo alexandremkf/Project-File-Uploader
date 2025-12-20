@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
 import folderRoutes from "./routes/folder.routes.js";
+import fileRoutes from "./routes/files.routes.js";
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use(authRoutes);
 app.use(dashboardRoutes);
 app.use(uploadRoutes);
 app.use(folderRoutes);
+app.use(fileRoutes);
 
 /* =========================
    ROTA TESTE
