@@ -51,6 +51,11 @@ app.use(fileRoutes);
 app.use(shareRoutes);
 
 /* =========================
+   Estilo
+========================= */
+app.use(express.static("src/public"));
+
+/* =========================
    ROTA TESTE
 ========================= */
 app.get("/", (req, res) => {

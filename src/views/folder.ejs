@@ -1,59 +1,89 @@
-<h2>Pasta: <%= folder.name %></h2>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Pasta</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
 
-<form action="/upload" method="POST" enctype="multipart/form-data">
-  <input type="file" name="file" required>
-  <input type="hidden" name="folderId" value="<%= folder.id %>">
-  <button type="submit">Upload para esta pasta</button>
-</form>
+<header class="header">
+  <h1>Pasta: <%= folder.name %></h1>
 
-<hr>
+  <div class="user">
+    <a href="/dashboard">Voltar</a>
+  </div>
+</header>
 
-<h3>Arquivos da pasta</h3>
+<main class="container">
 
-<ul>
-  <% if (folder.files.length === 0) { %>
-    <li>Nenhum arquivo nesta pasta</li>
-  <% } %>
+  <div class="card">
+    <h2>Upload para esta pasta</h2>
 
-  <% folder.files.forEach(file => { %>
-    <li>
-      📄
-      <a href="/files/<%= file.id %>">
-        <%= file.name %>
-      </a>
-      — <%= file.size %> bytes
-    </li>
-  <% }) %>
-</ul>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required>
+      <input type="hidden" name="folderId" value="<%= folder.id %>">
+      <button type="submit">Upload</button>
+    </form>
+  </div>
 
-<h3>Compartilhar pasta</h3>
+  <div class="card">
+    <h2>Arquivos</h2>
 
-<form action="/folders/<%= folder.id %>/share" method="POST">
-  <select name="duration">
-    <option value="1d">1 dia</option>
-    <option value="7d">7 dias</option>
-    <option value="30d">30 dias</option>
-  </select>
+    <ul>
+      <% if (folder.files.length === 0) { %>
+        <li>Nenhum arquivo nesta pasta</li>
+      <% } %>
 
-  <button type="submit">Gerar link</button>
-</form>
+      <% folder.files.forEach(file => { %>
+        <li>
+          <div>
+            📄
+            <a href="/files/<%= file.id %>" class="truncate" title="<%= file.name %>">
+                <%= file.name %>
+            </a>
+          </div>
+          <span><%= file.size %> bytes</span>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
 
-<h3>Links públicos</h3>
+  <div class="card">
+    <h2>Compartilhar pasta</h2>
 
-<ul>
-  <% if (folder.sharedLinks.length === 0) { %>
-    <li>Nenhum link gerado ainda</li>
-  <% } %>
+    <form action="/folders/<%= folder.id %>/share" method="POST">
+      <select name="duration">
+        <option value="1d">1 dia</option>
+        <option value="7d">7 dias</option>
+        <option value="30d">30 dias</option>
+      </select>
 
-  <% folder.sharedLinks.forEach(link => { %>
-    <li>
-      🔗
-      <a href="/share/<%= link.token %>" target="_blank">
-        /share/<%= link.token %>
-      </a>
-      (expira em <%= link.expiresAt.toLocaleDateString() %>)
-    </li>
-  <% }) %>
-</ul>
+      <button type="submit">Gerar link</button>
+    </form>
+  </div>
 
-<a href="/dashboard">⬅ Voltar</a>
+  <div class="card">
+    <h2>Links públicos</h2>
+
+    <ul>
+      <% if (folder.sharedLinks.length === 0) { %>
+        <li>Nenhum link gerado</li>
+      <% } %>
+
+      <% folder.sharedLinks.forEach(link => { %>
+        <li>
+          🔗
+          <a href="/share/<%= link.token %>" target="_blank">
+            /share/<%= link.token %>
+          </a>
+          <span>(expira em <%= link.expiresAt.toLocaleDateString() %>)</span>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+</main>
+
+</body>
+</html>

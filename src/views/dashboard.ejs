@@ -1,52 +1,95 @@
-<h1>Dashboard</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
 
-<p>Olá, <%= user.username %></p>
+<header class="header">
+  <h1>File Uploader</h1>
 
-<a href="/logout">Logout</a>
+  <div class="user">
+    <span><%= user.username %></span>
+    <a href="/logout">Logout</a>
+  </div>
+</header>
 
-<h1>Upload de Arquivo</h1>
+<main class="container">
 
-<% if (typeof error !== "undefined") { %>
-  <p style="color: red;"><%= error %></p>
-<% } %>
+  <% if (typeof error !== "undefined") { %>
+    <div class="card" style="border-color: var(--danger); color: var(--danger);">
+      <%= error %>
+    </div>
+  <% } %>
 
-<form action="/upload" method="POST" enctype="multipart/form-data">
-  <input type="file" name="file" required />
-  <button type="submit">Upload</button>
-</form>
+  <div class="card">
+    <h2>Upload de arquivo</h2>
 
-<h3>Criar pasta</h3>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required />
+      <button type="submit">Upload</button>
+    </form>
+  </div>
 
-<form action="/folders" method="POST">
-  <input type="text" name="name" placeholder="Nome da pasta" required />
-  <button type="submit">Criar</button>
-</form>
+  <div class="card">
+    <h2>Criar pasta</h2>
 
-<h3>Pastas</h3>
+    <form action="/folders" method="POST">
+      <input type="text" name="name" placeholder="Nome da pasta" required />
+      <button type="submit">Criar</button>
+    </form>
+  </div>
 
-<ul>
-  <% folders.forEach(folder => { %>
-    <li>
-      📁 
-      <a href="/folders/<%= folder.id %>">
-        <%= folder.name %>
-      </a>
+  <div class="card">
+    <h2>Pastas</h2>
 
-      <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline">
-        <button type="submit">❌</button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
+    <ul>
+      <% if (folders.length === 0) { %>
+        <li>Nenhuma pasta criada</li>
+      <% } %>
 
-<ul>
-  <% files.forEach(file => { %>
-    <li>
-      📄
-      <a href="/files/<%= file.id %>">
-        <%= file.name %>
-      </a>
-      — <%= file.size %> bytes
-    </li>
-  <% }) %>
-</ul>
+      <% folders.forEach(folder => { %>
+        <li>
+          <div>
+            📁
+            <a href="/folders/<%= folder.id %>">
+              <%= folder.name %>
+            </a>
+          </div>
+
+          <form action="/folders/<%= folder.id %>/delete" method="POST">
+            <button class="danger" type="submit">Excluir</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Arquivos soltos</h2>
+
+    <ul>
+      <% if (files.length === 0) { %>
+        <li>Nenhum arquivo enviado</li>
+      <% } %>
+
+      <% files.forEach(file => { %>
+        <li>
+          <div>
+            📄
+            <a href="/files/<%= file.id %>" class="truncate" title="<%= file.name %>">
+                <%= file.name %>
+            </a>
+          </div>
+          <span><%= file.size %> bytes</span>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+</main>
+
+</body>
+</html>

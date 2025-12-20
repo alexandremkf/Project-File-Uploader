@@ -1,13 +1,34 @@
-<h2>Detalhes do arquivo</h2>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes do arquivo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
 
-<p><strong>Nome:</strong> <%= file.name %></p>
-<p><strong>Tamanho:</strong> <%= file.size %> bytes</p>
-<p><strong>Upload em:</strong> <%= file.createdAt.toLocaleString() %></p>
+<header class="header">
+  <h1>Detalhes do arquivo</h1>
+  <div class="user">
+    <a href="/dashboard">Voltar</a>
+  </div>
+</header>
 
-<a href="/files/<%= file.id %>/download">
-  ⬇️ Download
-</a>
+<main class="container">
+  <div class="card">
+    <p class="break-word">
+        <strong>Nome:</strong> <%= file.name %>
+    </p>
+    <p><strong>Tamanho:</strong> <%= file.size %> bytes</p>
+    <p><strong>Upload em:</strong> <%= file.createdAt.toLocaleString() %></p>
 
-<br><br>
+    <br>
 
-<a href="/dashboard">⬅ Voltar</a>
+    <a href="/files/<%= file.id %>/download">
+      <button>Download</button>
+    </a>
+  </div>
+</main>
+
+</body>
+</html>

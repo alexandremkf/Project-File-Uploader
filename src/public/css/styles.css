@@ -1,0 +1,235 @@
+/* RESET BÁSICO */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* VARIÁVEIS */
+:root {
+  --bg: #f4f6f8;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --danger: #dc2626;
+  --radius: 10px;
+}
+
+/* BODY */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* HEADER */
+.header {
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.header .user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header .user span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.header a {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* CARD */
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+}
+
+.card h2 {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* FORMULÁRIOS */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input,
+select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* BOTÕES */
+button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.danger {
+  background-color: var(--danger);
+}
+
+button.danger:hover {
+  background-color: #b91c1c;
+}
+
+/* LISTAS */
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+li {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #fafafa;
+}
+
+li:hover {
+  background-color: #f9fafb;
+}
+
+/* LINKS */
+a {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* TEXTO AUXILIAR */
+span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* RESPONSIVO */
+@media (max-width: 700px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+/* ===== PROTEÇÃO CONTRA TEXTOS LONGOS ===== */
+
+/* Quebra palavras gigantes (PDFs, certificados, etc) */
+.break-word {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Truncar texto em listas (dashboard / pastas) */
+.truncate {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Em telas pequenas, reduz ainda mais */
+@media (max-width: 700px) {
+  .truncate {
+    max-width: 140px;
+  }
+}
+
+/* ===== LISTAS COM FLEX (arquivos e pastas) ===== */
+
+.card ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* IMPORTANTE: permite que o conteúdo quebre */
+.card ul li > div {
+  min-width: 0;
+  flex: 1;
+}
