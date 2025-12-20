@@ -1,0 +1,14 @@
+<h1>Dashboard</h1>
+
+<p>Olá, <%= user.username %></p>
+
+<a href="/upload">Upload de arquivo</a> |
+<a href="/logout">Logout</a>
+
+<ul>
+  <% files.forEach(file => { %>
+    <li>
+      <%= file.name %> - <%= file.size %> bytes
+    </li>
+  <% }) %>
+</ul>
