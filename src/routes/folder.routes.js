@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ensureAuthenticated } from "../middleware/auth.js";
+import prisma from "../config/prisma.js";
 import {
   createFolder,
   listFolders,
@@ -9,7 +10,19 @@ import {
 const router = Router();
 
 // listar pastas do usuário logado
-router.get("/", ensureAuthenticated, listFolders);
+router.get("/folders/:id", ensureAuthenticated, async (req, res) => {
+  const folder = await prisma.folder.findUnique({
+    where: { id: req.params.id },
+    include: {
+      files: true,
+    },
+  });
+
+  res.render("folder", {
+    folder,
+    user: req.user,
+  });
+});
 
 // criar nova pasta
 router.post("/", ensureAuthenticated, createFolder);

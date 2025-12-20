@@ -2,8 +2,14 @@
 
 <p>Olá, <%= user.username %></p>
 
-<a href="/upload">Upload de arquivo</a> |
 <a href="/logout">Logout</a>
+
+<h1>Upload de Arquivo</h1>
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <input type="file" name="file" required />
+  <button type="submit">Upload</button>
+</form>
 
 <h3>Criar pasta</h3>
 
@@ -15,19 +21,18 @@
 <h3>Pastas</h3>
 
 <ul>
-  <% if (folders && folders.length > 0) { %>
-    <% folders.forEach(folder => { %>
-      <li>
-        📁 <%= folder.name %>
+  <% folders.forEach(folder => { %>
+    <li>
+      📁 
+      <a href="/folders/<%= folder.id %>">
+        <%= folder.name %>
+      </a>
 
-        <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline">
-          <button type="submit">Excluir</button>
-        </form>
-      </li>
-    <% }) %>
-  <% } else { %>
-    <li>Nenhuma pasta criada</li>
-  <% } %>
+      <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline">
+        <button type="submit">❌</button>
+      </form>
+    </li>
+  <% }) %>
 </ul>
 
 <ul>

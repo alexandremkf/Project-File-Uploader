@@ -1,0 +1,25 @@
+<h2>Pasta: <%= folder.name %></h2>
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <input type="file" name="file" required>
+  <input type="hidden" name="folderId" value="<%= folder.id %>">
+  <button type="submit">Upload para esta pasta</button>
+</form>
+
+<hr>
+
+<h3>Arquivos da pasta</h3>
+
+<ul>
+  <% if (folder.files.length === 0) { %>
+    <li>Nenhum arquivo nesta pasta</li>
+  <% } %>
+
+  <% folder.files.forEach(file => { %>
+    <li>
+      📄 <%= file.name %> — <%= file.size %> bytes
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/dashboard">⬅ Voltar</a>

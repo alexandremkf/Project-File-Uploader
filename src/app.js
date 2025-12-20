@@ -44,7 +44,7 @@ app.use(passport.session());
 app.use(authRoutes);
 app.use(dashboardRoutes);
 app.use(uploadRoutes);
-app.use("/folders", folderRoutes);
+app.use(folderRoutes);
 
 /* =========================
    ROTA TESTE

@@ -1,29 +1,42 @@
 import { Router } from "express";
-import upload from "../config/multer.js";
-import { ensureAuthenticated } from "../middleware/auth.js";
+import multer from "multer";
 import prisma from "../config/prisma.js";
+import { ensureAuthenticated } from "../middleware/auth.js";
 
 const router = Router();
 
-// Form de upload
-router.get("/upload", ensureAuthenticated, (req, res) => {
-  res.render("upload");
+// Config do multer
+const upload = multer({
+  dest: "uploads/",
 });
 
-// Receber arquivo
 router.post(
   "/upload",
   ensureAuthenticated,
   upload.single("file"),
   async (req, res) => {
+    const { file } = req;
+    const { folderId } = req.body;
+
+    console.log("folderId recebido:", folderId);
+    
+    if (!file) {
+      return res.redirect("/dashboard");
+    }
+
     await prisma.file.create({
-        data: {
-            name: req.file.originalname,
-            path: req.file.path, 
-            size: req.file.size,
-            userId: req.user.id,
-        },
+      data: {
+        name: file.originalname,
+        path: file.path,
+        size: file.size,
+        userId: req.user.id,
+        folderId: folderId || null,
+      },
     });
+
+    if (folderId) {
+    return res.redirect(`/folders/${folderId}`);
+    }
 
     res.redirect("/dashboard");
   }
