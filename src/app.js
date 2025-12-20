@@ -56,12 +56,15 @@ app.use(shareRoutes);
 app.use(express.static("src/public"));
 
 /* =========================
-   ROTA TESTE
+   ROTA PRINCIPAL
 ========================= */
 app.get("/", (req, res) => {
-  res.send("Servidor rodando 🚀");
-});
+  if (req.isAuthenticated && req.isAuthenticated()) {
+    return res.redirect("/dashboard");
+  }
 
+  return res.redirect("/login");
+});
 
 /* =========================
    porta
